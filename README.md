@@ -1,4 +1,4 @@
-<img src="https://github.com/md-afif-alam.png" width="120" alt="Md. Afif Alam" align="right" />
+<img src="https://github.com/md-afif-alam.png" width="120" alt="Md. Afif Alam" align="right" style="border-radius:50%"/>
 
 # Md. Afif Alam – Modern Web Developer
 
