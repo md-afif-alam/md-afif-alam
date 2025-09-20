@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afif Alam | Portfolio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+    <!-- Custom CSS -->
+    <style>
+        /*--------------------------------------------------------------
+        # Base & Variables
+        --------------------------------------------------------------*/
+        :root {
+            --font-primary: 'Poppins', sans-serif;
+
+            /* Gradients & Accents */
+            --gradient-primary: linear-gradient(90deg, #4f46e5, #a855f7, #ec4899);
+            --accent-1: #4f46e5;
+            --accent-2: #ec4899;
+
+            /* Light Mode */
+            --bg-light: #f8f9fa;
+            --text-light: #495057;
+            --heading-light: #212529;
+            --card-bg-light: rgba(255, 255, 255, 0.7);
+            --card-border-light: #e9ecef;
+
+            /* Dark Mode */
+            --bg-dark: #090a1e;
+            --text-dark: #94a3b8;
+            --heading-dark: #e2e8f0;
+            --card-bg-dark: rgba(10, 16, 26, 0.7);
+            --card-border-dark: #334155;
+        }
+
+        [data-bs-theme="light"] {
+            --bg-color: var(--bg-light);
+            --text-color: var(--text-light);
+            --heading-color: var(--heading-light);
+            --card-bg: var(--card-bg-light);
+            --card-border: var(--card-border-light);
+        }
+
+        [data-bs-theme="dark"] {
+            --bg-color: var(--bg-dark);
+            --text-color: var(--text-dark);
+            --heading-color: var(--heading-dark);
+            --card-bg: var(--card-bg-dark);
+            --card-border: var(--card-border-dark);
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+        
+        section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .section-title h2 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-gradient {
+            background-image: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            background-size: 200% auto;
+        }
+
+        .btn-gradient:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /*--------------------------------------------------------------
+        # Custom Cursor
+        --------------------------------------------------------------*/
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-2);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .cursor-grow {
+            width: 40px;
+            height: 40px;
+            border-color: var(--accent-2);
+        }
+        
+        @media (max-width: 992px) {
+            .cursor, .cursor-dot { display: none; }
+            body { cursor: auto; }
+        }
+
+        /*--------------------------------------------------------------
+        # Navbar
+        --------------------------------------------------------------*/
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand { font-weight: 700; }
+        .navbar .nav-link { font-weight: 500; transition: color 0.3s; }
+        [data-bs-theme="dark"] .navbar .nav-link { color: var(--text-dark); }
+        [data-bs-theme="light"] .navbar .nav-link { color: var(--text-light); }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: var(--accent-1) !important;
+        }
+        
+        /*--------------------------------------------------------------
+        # Hero Section
+        --------------------------------------------------------------*/
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        #hero h1 { font-size: 3.5rem; font-weight: 800; }
+        .typed-cursor { font-size: 3.5rem; color: var(--accent-1); }
+        #hero .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        #hero .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero-animation { position: relative; }
+        .blob {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-primary);
+            border-radius: 42% 56% 72% 28% / 42% 42% 56% 48%;
+            animation: blob-morph 10s linear infinite;
+        }
+        @keyframes blob-morph {
+            0%, 100% { border-radius: 42% 56% 72% 28% / 42% 42% 56% 48%; }
+            25% { border-radius: 28% 72% 42% 56% / 48% 56% 42% 42%; }
+            50% { border-radius: 72% 28% 56% 42% / 56% 48% 42% 42%; }
+            75% { border-radius: 56% 42% 28% 72% / 42% 42% 48% 56%; }
+        }
+
+        /*--------------------------------------------------------------
+        # Stats Section
+        --------------------------------------------------------------*/
+        .stat-item { padding: 20px; text-align: center; }
+        .stat-item .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /*--------------------------------------------------------------
+        # Services Section
+        --------------------------------------------------------------*/
+        .service-card {
+            padding: 30px;
+            text-align: center;
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: var(--gradient-primary);
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /*--------------------------------------------------------------
+        # Skills Section
+        --------------------------------------------------------------*/
+        .progress-bar {
+            background-image: var(--gradient-primary);
+            font-weight: 600;
+        }
+        
+        /*--------------------------------------------------------------
+        # Journey (Timeline)
+        --------------------------------------------------------------*/
+        .timeline { list-style: none; padding: 20px 0; position: relative; }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--card-border);
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        .timeline-item {
+            padding: 1em 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12.5px;
+            background-color: var(--accent-1);
+            border: 4px solid var(--bg-color);
+            top: 30px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even):after { left: -12.5px; }
+        .timeline-content { padding: 20px 30px; }
+        @media (max-width: 768px) {
+            .timeline:before { left: 30px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item:after { left: 18px; }
+        }
+        
+        /*--------------------------------------------------------------
+        # Testimonials
+        --------------------------------------------------------------*/
+        .testimonial-item { padding: 0 40px; }
+        .testimonial-item img {
+            width: 100px;
+            border-radius: 50%;
+            border: 5px solid var(--card-border);
+            margin-bottom: 20px;
+        }
+        
+        /*--------------------------------------------------------------
+        # Back to Top Button & Footer
+        --------------------------------------------------------------*/
+        .back-to-top {
+            position: fixed;
+            visibility: hidden;
+            opacity: 0;
+            right: 15px;
+            bottom: 15px;
+            z-index: 996;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.4s;
+            background-image: var(--gradient-primary);
+            color: white;
+        }
+        .back-to-top.active { visibility: visible; opacity: 1; }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
+    
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- ======= Header/Navbar ======= -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">Afif.</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                         <label class="theme-switch" for="checkbox" style="--bs-body-bg: var(--bs-body-bg) !important;">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round" style="background-color: var(--card-border);"><div class="icon"></div></div>
+                         </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <style> /* Theme toggle styles, slightly modified */
+        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .theme-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider .icon {position: absolute; left: 4px; top: 4px; transition: .4s; }
+        input:checked + .slider { background-image: var(--gradient-primary); }
+        input:checked + .slider:before { transform: translateX(24px); }
+    </style>
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="status-badge glass-card mb-4">
+                        <span class="dot"></span>
+                        <span>Available for collaboration</span>
+                    </div>
+                    <h1>I am Afif, a <span class="typed"></span></h1>
+                    <p class="lead my-4">A passionate student from Bangladesh with a big dream: to build innovative technology, contribute to the future of AI, and become a successful entrepreneur.</p>
+                    <a href="#contact" class="btn btn-gradient">Let's Connect <i class="bi bi-arrow-right-short"></i></a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+                    <div class="hero-animation">
+                        <div class="blob"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="main">
+
+        <!-- ======= Stats Section ======= -->
+        <section id="stats" class="py-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-3 col-6 stat-item" data-aos="fade-up">
+                        <h3 class="counter">4</h3>
+                        <p>Years of Coding</p>
+                    </div>
+                    <div class="col-md-3 col-6 stat-item" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="counter">15</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="col-md-3 col-6 stat-item" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="counter">5</h3>
+                        <p>Skilled Languaged</p>
+                    </div>
+                    <div class="col-md-3 col-6 stat-item" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="counter">100</h3>
+                        <p>Percent Ambition</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= About Me Section ======= -->
+        <section id="about">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>About <span>Me</span></h2>
+                    <p>A little bit about my story, my passion, and my mission.</p>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-center" data-aos="fade-right">
+                        <!-- Replace with your profile picture -->
+                        <img src="https://scontent.fdac110-1.fna.fbcdn.net/v/t39.30808-6/486157004_661486929762112_4191665775016218657_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=wUrqD4osxgsQ7kNvwGOFiVR&_nc_oc=Adnn1CH77NK2eYEDH9aFRSPdVAVYoRL87tWHXggiVXJo1Rf6gU_gbSwuascGOgr9ow4&_nc_zt=23&_nc_ht=scontent.fdac110-1.fna&_nc_gid=3FQ37Np_Wgv-iRyqPL3hNQ&oh=00_Afa4WfntT8Ifo8TKT0OLtdBjQz3YOOmTrXNpmNnUZin1oQ&oe=68D49462" class="img-fluid rounded-circle shadow-lg" style="height: 300px; width: 300px;" alt="Labib's Profile Picture">
+                    </div>
+                    <div class="col-lg-8" data-aos="fade-left" data-aos-delay="100">
+                        <h3>Web Developer & AI Explorer</h3>
+                        <p>I'm a self-taught web developer who recently completed SSC and is now laser-focused on securing admission to BUET. My journey started with a simple "Hello World" and has grown into a deep passion for building scalable SaaS products, exploring AI, and contributing to open-source projects.</p>
+                        <p>I believe technology is the ultimate tool for problem-solving, and I am driven to use my skills to create solutions that are not only functional but also beautiful and user-centric. My goal isn't just to be a developer, but to be an architect of future technology.</p>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    
+                                    <li class="py-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> <strong>From:</strong> Banani, Dhaka, Bangladesh</li>
+                                    <li class="py-2"><i class="bi bi-building text-primary me-2"></i> <strong>School:</strong> Adamjee Cantonment Public School</li>
+                                    <li class="py-2"><i class="bi bi-building-fill text-primary me-2"></i> <strong>College:</strong> Adamjee Cantonment College</li>
+                                    <li class="py-2"><i class="bi bi-envelope-fill text-primary me-2"></i> <strong>Email:</strong> afif.labib321@gmail.com</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="py-2"><i class="bi bi-code-slash text-primary me-2"></i><strong>Languages</strong> : Bangla, English</li>
+                                    <li class="py-2"><i class="bi bi-mortarboard-fill text-primary me-2"></i> <strong>Goal</strong> : CSE, BUET</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>What <span>I Do</span></h2>
+                    <p>I build modern, responsive, and high-performance digital solutions.</p>
+                </div>
+                <div class="row gy-4">
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                        <div class="service-card glass-card">
+                            <div class="service-icon"><i class="bi bi-window-stack"></i></div>
+                            <h4>Web App Development</h4>
+                            <p>Creating robust and scalable web apps using modern frameworks like Laravel and React.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card glass-card">
+                            <div class="service-icon"><i class="bi bi-palette"></i></div>
+                            <h4>UI/UX & Frontend</h4>
+                            <p>Designing intuitive user interfaces and bringing them to life with clean HTML, CSS, and JS.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card glass-card">
+                            <div class="service-icon"><i class="bi bi-github"></i></div>
+                            <h4>Open Source Contribution</h4>
+                            <p>Actively contributing to the open-source community to improve software for everyone.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======= Skills Section ======= -->
+        <section id="skills">
+            <div class="container">
+                 <div class="section-title" data-aos="fade-up">
+                    <h2>My <span>Skillset</span></h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <div class="py-2">
+                            <span>HTML & CSS</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                         <div class="py-2">
+                            <span>JavaScript & Bootstrap</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <span>React (Basics)</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+                         <div class="py-2">
+                            <span>PHP</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                         <div class="py-2">
+                            <span>Laravel</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                         <div class="py-2">
+                            <span>AI Tools & APIs</span>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======= Projects Section (Portfolio) ======= -->
+        <section id="projects" class="">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Featured <span>Work</span></h2>
+                    <p>A selection of projects that I'm proud of. More on my GitHub!</p>
+                </div>
+                <!-- Project filtering logic and items can be reused from v1 here if desired -->
+                 <div class="row gy-4">
+                    <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+                        <div class="project-card glass-card p-3">
+                            <a href="https://placehold.co/800x600/0f172a/e2e8f0?text=Project+1" class="glightbox">
+                                <img src="https://placehold.co/600x400/0f172a/e2e8f0?text=Project+1" class="img-fluid rounded" alt="">
+                            </a>
+                            <div class="mt-3">
+                                <h5 class="mb-1">SaaS Platform</h5>
+                                <p class="small">A full-stack application built with Laravel and React.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="project-card glass-card p-3">
+                            <a href="https://placehold.co/800x600/0f172a/e2e8f0?text=Project+2" class="glightbox">
+                                <img src="https://placehold.co/600x400/0f172a/e2e8f0?text=Project+2" class="img-fluid rounded" alt="">
+                            </a>
+                            <div class="mt-3">
+                                <h5 class="mb-1">AI Article Summarizer</h5>
+                                <p class="small">JavaScript tool using OpenAI API for text summarization.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="project-card glass-card p-3">
+                            <a href="https://placehold.co/800x600/0f172a/e2e8f0?text=Project+3" class="glightbox">
+                                <img src="https://placehold.co/600x400/0f172a/e2e8f0?text=Project+3" class="img-fluid rounded" alt="">
+                            </a>
+                             <div class="mt-3">
+                                <h5 class="mb-1">Open Source Contribution</h5>
+                                <p class="small">Performance enhancements for a popular PHP library.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= Journey Section ======= -->
+        <section id="journey">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>My <span>Journey</span></h2>
+                    <p>Combining academic milestones with my passion for technology.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-content glass-card">
+                            <h4>Completed SSC</h4>
+                            <p class="text-muted">2025</p>
+                            <p>Graduated with a strong foundation in science, ready for the next challenge.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-content glass-card">
+                            <h4>Completed Web Development Course</h4>
+                            <p class="text-muted">Present</p>
+                            <p>I have successfully completed my Web Development course from Creative IT Institute.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-content glass-card">
+                            <h4>Tried to Build skill on AI Prompt Engineering</h4>
+                            <p class="text-muted">After SSC</p>
+                            <p>Explored lot of AIs available in the web and tried to enhance my knowledge on AI.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-content glass-card">
+                            <h4>Become a Founder</h4>
+                            <p class="text-muted">Ultimate Ambition</p>
+                            <p>To lead a tech company that innovates and contributes positively to the global tech ecosystem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>What <span>They Say</span></h2>
+                    <p>Kind words from collaborators and mentors (placeholders).</p>
+                </div>
+                 <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up">
+                    <div class="carousel-inner text-center">
+                        <div class="carousel-item active">
+                            <div class="testimonial-item">
+                                <img src="https://placehold.co/100x100/4f46e5/ffffff?text=A" alt="" class="shadow">
+                                <h3>Mentor Name</h3>
+                                <h4>Teacher / Senior Developer</h4>
+                                <p class="fst-italic">"Labib's curiosity and drive are remarkable. He's not just learning to code; he's learning to think like an engineer."</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div class="testimonial-item">
+                                <img src="https://placehold.co/100x100/a855f7/ffffff?text=B" alt="" class="shadow">
+                                <h3>Collaborator Name</h3>
+                                <h4>Open Source Contributor</h4>
+                                <p class="fst-italic">"Working with Labib was a great experience. His code is clean, and he's always eager to learn and improve."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= FAQ Section ======= -->
+        <section id="faq">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Frequently Asked <span>Questions</span></h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="accordion" id="faqAccordion" data-aos="fade-up" data-aos-delay="100">
+                            <!-- FAQ Item 1 -->
+                            <div class="accordion-item glass-card mb-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        Are you available for freelance projects?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Currently, my main focus is on my studies and preparing for university admission. However, I am open to discussing small-scale projects or collaborations that align with my skills and schedule. Feel free to reach out!
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FAQ Item 2 -->
+                            <div class="accordion-item glass-card mb-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        What are you most passionate about in tech?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        I am deeply fascinated by the architecture of large-scale SaaS applications and the potential of AI to automate complex tasks. My passion lies at the intersection of creating user-friendly products and leveraging powerful backend technologies.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Let's <span>Talk</span></h2>
+                    <p>Have a project, an idea, or just want to say hi? My inbox is always open.</p>
+                </div>
+                 <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="glass-card p-4 p-md-5" data-aos="fade-up">
+                            <form action="https://formspree.io/f/xandrklb" method="post" role="form" class="php-email-form"> <!-- Add Formspree/Netlify URL to action -->
+                                <div class="row">
+                                    <div class="form-group col-md-6 mb-3">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-gradient">Send Message</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-center mt-4" data-aos="fade-up">
+                            <a href="https://github.com/md-afif-alam" target="_blank" class="fs-2 mx-3"><i class="bi bi-github"></i></a>
+                            
+                            <a href="https://facebook.com/mdafifalamlabib" target="_blank" class="fs-2 mx-3"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======= Footer ======= -->
+    <footer class="text-center py-4">
+        <div class="container">
+            <p>&copy; 2024 Afif. All Rights Reserved. Crafted with passion in Bangladesh.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.counterup@2.1.0/jquery.counterup.min.js"></script>
+
+
+    <!-- Custom JS -->
+    <script>
+    $(document).ready(function() {
+        'use strict';
+
+        // 1. AOS Initialization
+        AOS.init({ duration: 1000, once: true });
+
+        // 2. GLightbox
+        GLightbox({ selector: '.glightbox' });
+
+        // 3. Typed.js for Hero Section
+        if ($('.typed').length) {
+            new Typed('.typed', {
+                strings: ['Web Developer', 'SaaS Builder', 'AI Enthusiast', 'Future Founder'],
+                loop: true,
+                typeSpeed: 70,
+                backSpeed: 50,
+                backDelay: 2000
+            });
+        }
+        
+        // 4. Counter-Up
+        $('.counter').counterUp({ delay: 10, time: 1000 });
+        
+        // 5. Sticky Navbar
+        $(window).scroll(() => {
+            $('#navbar').toggleClass('scrolled', $(this).scrollTop() > 50);
+        });
+        
+        // 6. Smooth Scroll & Active Nav Link
+        $('a.nav-link').on('click', function(e) {
+            if (this.hash !== "") {
+                e.preventDefault();
+                const hash = this.hash;
+                $('html, body').animate({ scrollTop: $(hash).offset().top - 70 }, 800);
+            }
+        });
+
+        // 7. Back to Top Button
+        const backToTop = $('.back-to-top');
+        $(window).scroll(() => {
+            backToTop.toggleClass('active', $(this).scrollTop() > 100);
+        });
+        backToTop.on('click', (e) => {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
+        });
+
+        // 8. Custom Cursor
+        const cursor = $('.cursor');
+        const cursorDot = $('.cursor-dot');
+        $(window).on('mousemove', function(e) {
+            cursor.css({ top: e.clientY, left: e.clientX });
+            cursorDot.css({ top: e.clientY, left: e.clientX });
+        });
+        $('a, button, .accordion-button, .carousel-control-prev, .carousel-control-next').on('mouseenter', () => cursor.addClass('cursor-grow')).on('mouseleave', () => cursor.removeClass('cursor-grow'));
+
+        // 9. Dark/Light Mode Toggle
+        const themeSwitch = $('#checkbox');
+        const currentTheme = localStorage.getItem('theme');
+        const setTheme = (theme) => {
+            $('body').attr('data-bs-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeSwitch.prop('checked', theme === 'light');
+        };
+        setTheme(currentTheme || 'light'); // Default to dark
+        themeSwitch.on('change', (e) => setTheme(e.target.checked ? 'light' : 'dark'));
+    
+    });
+    </script>
+</body>
+</html>
