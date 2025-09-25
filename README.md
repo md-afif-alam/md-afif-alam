@@ -12,6 +12,7 @@ I specialize in **HTML, CSS, JavaScript, PHP, Laravel, Bootstrap, jQuery**, and 
 - 🎓 Student & web development enthusiast
 - 💻 Love building web-based games, brain boosters, and simple AI projects
 - 🔧 Always learning and exploring new tech
+- Here is my Portfolio: https://md-afif-alam.github.io/afifs-portfolio/
 
 
 ---
