@@ -12,7 +12,7 @@ I specialize in **HTML, CSS, JavaScript, PHP, Laravel, Bootstrap, jQuery**, and 
 - 🎓 Student & web development enthusiast
 - 💻 Love building web-based games, brain boosters, and simple AI projects
 - 🔧 Always learning and exploring new tech
-- 🌱 Currently working on: [class-routine-maker](https://github.com/md-afif-alam/class-routine-maker)
+
 
 ---
 
@@ -25,19 +25,6 @@ I specialize in **HTML, CSS, JavaScript, PHP, Laravel, Bootstrap, jQuery**, and 
 
 ---
 
-## 🌟 Featured Projects
-
-> _Add your favorite projects below! Update the links and descriptions as you upload them._
-
-- **Project Name**  
-  _Short description about the project._  
-  [GitHub Repo](#) | [Live Demo](#)
-
-- **Project Name**  
-  _Short description about the project._  
-  [GitHub Repo](#) | [Live Demo](#)
-
----
 
 ## 📫 Contact
 
